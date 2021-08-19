@@ -15,11 +15,11 @@ app.use(express.json());
 
 app.use("/api/contacts", contactsRouter);
 
-app.use((req, res) => {
+app.use((err, _, res, __) => {
   res.status(HttpCode.NOT_FOUND).json({ status: "error", code: HttpCode.NOT_FOUND, message: err.message });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, _, res, __) => {
   const status = err.status || HttpCode.INTERAL_SERVE_ERROR;
   res.status(status).json({ status: "fail", code: status, message: err.message });
 });
