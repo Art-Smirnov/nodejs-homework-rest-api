@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-const HttpCode = require("../../helpers/codes-constants");
+const HttpCode = require("../helpers/codes-constants");
 
 const schemaAddContact = Joi.object({
   name: Joi.string().alphanum().min(3).max(30).required(),
@@ -36,10 +36,6 @@ const schemaUpdateContact = Joi.object({
   isBlocked: Joi.boolean().optional(),
 }).or("name", "email", "phone", "isBlocked");
 
-const schemaUpdateContactStatus = Joi.object({
-  isBlocked: Joi.boolean().required(),
-});
-
 const validate = async (schema, obj, next) => {
   try {
     await schema.validateAsync(obj);
@@ -58,8 +54,5 @@ module.exports = {
   },
   updateContactValidation: (req, res, next) => {
     return validate(schemaUpdateContact, req.body, next);
-  },
-  updateContactStatusValidation: (req, res, next) => {
-    return validate(schemaUpdateContactStatus, req.body, next);
   },
 };
