@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { contacts: ctrl } = require("../controllers");
+
 const { addContactValidation, updateContactValidation } = require("./validation");
 
 router.get("/", ctrl.getAll);
