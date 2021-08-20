@@ -15,8 +15,13 @@ app.use(express.json());
 
 app.use("/api/contacts", api.contacts);
 
-app.use((err, req, res, next) => {
-  res.status(HttpCode.NOT_FOUND).json({ status: "error", code: HttpCode.NOT_FOUND, message: err.message });
+app.use((req, res) => {
+  res.status(HttpCode.NOT_FOUND).json({
+    status: "error",
+    code: HttpCode.NOT_FOUND,
+    message: `Use api on routes ${req.baseUrl}/api/contacts`,
+    data: "Not found",
+  });
 });
 
 app.use((err, req, res, next) => {
